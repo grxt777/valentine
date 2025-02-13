@@ -15,11 +15,21 @@
       text-align: center;
       font-family: Arial, sans-serif;
       overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
-    .bear {
+    /* Первая картинка (picture_name) */
+    .picture {
       width: 50vw;
       max-width: 200px;
       animation: bounce 1s infinite alternate;
+    }
+    /* Мишка, который изначально скрыт */
+    .bear {
+      width: 50vw;
+      max-width: 200px;
+      display: none; /* изначально скрыт */
+      margin-top: 20px;
     }
     @keyframes bounce {
       from { transform: translateY(0); }
@@ -51,14 +61,21 @@
   </style>
 </head>
 <body>
-  <h1>Will you be my Valentine?</h1>
-  <img src="teddy.png" alt="Мишка с сердечком" class="bear">
+  <!-- Убрали заголовок, чтобы не было текста "Will you be my Valentine?" -->
+  
+  <!-- Картинка, которая отображается при загрузке (picture_name) -->
+  <img src="picture_name.jpg" alt="Моя новая картинка" class="picture" />
+  
   <div class="buttons">
     <button class="yes" onclick="finalYes()">Yes</button>
     <button class="no" onclick="handleNo()">No</button>
   </div>
+  
+  <!-- Мишка, который появится после нажатия Yes -->
+  <img src="teddy.png" alt="Мишка с сердечком" class="bear" />
+  
   <script>
-    // Варианты для кнопки "No"
+    // Массив вариантов для кнопки "No"
     const noVariants = [
       "I will be sad",
       "Very, very sad",
@@ -69,27 +86,29 @@
       "Please say yes!"
     ];
     let noIndex = 0;
-    
+
     function finalYes() {
+      // Прячем кнопки
       document.querySelector('.buttons').style.display = 'none';
-      document.querySelector('h1').innerText = '❤️ Ура! ❤️';
+      
+      // Скрываем картинку picture_name
+      document.querySelector('.picture').style.display = 'none';
+
+      // Показываем мишку
+      document.querySelector('.bear').style.display = 'block';
     }
-    
+
     function handleNo() {
-      // Меняем текст кнопки No
+      // Меняем текст кнопки "No"
       const noButton = document.querySelector('.no');
       noButton.innerText = noVariants[noIndex];
       noIndex = (noIndex + 1) % noVariants.length;
-      
-      // Увеличиваем кнопку Yes
+
+      // Увеличиваем кнопку "Yes"
       const yesButton = document.querySelector('.yes');
-      // Получаем текущий размер шрифта
       let currentFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-      // Увеличиваем шрифт на 50%
       let newFontSize = currentFontSize * 1.5;
       yesButton.style.fontSize = newFontSize + 'px';
-      
-      // Пропорционально изменяем padding (на усмотрение)
       yesButton.style.padding = (newFontSize * 0.5) + 'px ' + (newFontSize * 0.8) + 'px';
     }
   </script>
