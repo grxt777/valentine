@@ -31,6 +31,12 @@
       display: none; /* изначально скрыт */
       margin-top: 20px;
     }
+    /* Финальный текст, который будет показан после нажатия Yes */
+    .finalText {
+      display: none;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
     @keyframes bounce {
       from { transform: translateY(0); }
       to { transform: translateY(-20px); }
@@ -61,8 +67,6 @@
   </style>
 </head>
 <body>
-  <!-- Убрали заголовок, чтобы не было текста "Will you be my Valentine?" -->
-  
   <!-- Картинка, которая отображается при загрузке (picture_name) -->
   <img src="picture_name.jpg" alt="Моя новая картинка" class="picture" />
   
@@ -70,6 +74,9 @@
     <button class="yes" onclick="finalYes()">Yes</button>
     <button class="no" onclick="handleNo()">No</button>
   </div>
+  
+  <!-- Финальный текст, который появится после нажатия Yes -->
+  <h2 class="finalText">Ура! ❤️</h2>
   
   <!-- Мишка, который появится после нажатия Yes -->
   <img src="teddy.png" alt="Мишка с сердечком" class="bear" />
@@ -93,6 +100,9 @@
       
       // Скрываем картинку picture_name
       document.querySelector('.picture').style.display = 'none';
+
+      // Показываем финальный текст
+      document.querySelector('.finalText').style.display = 'block';
 
       // Показываем мишку
       document.querySelector('.bear').style.display = 'block';
