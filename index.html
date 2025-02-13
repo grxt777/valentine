@@ -1,81 +1,97 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Будешь моей девушкой?</title>
-    <style>
-        body {
-            background-color: pink;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        .bear {
-            width: 50vw;
-            max-width: 200px;
-            animation: bounce 1s infinite alternate;
-        }
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-20px); }
-        }
-        .buttons {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-        .yes {
-            background-color: green;
-            color: white;
-            font-size: 20px;
-        }
-        .no {
-            background-color: red;
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Будешь моей девушкой?</title>
+  <style>
+    body {
+      background-color: pink;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    .bear {
+      width: 50vw;
+      max-width: 200px;
+      animation: bounce 1s infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    .yes {
+      background-color: green;
+      color: white;
+    }
+    .no {
+      background-color: red;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <h1>Will you be my Valentine?</h1>
-    <img src="teddy.png" alt="Мишка с сердечком" class="bear">
-    <div class="buttons">
-        <button class="yes" onclick="finalYes()">Yes</button>
-        <button class="no" onclick="shrinkNo()">No</button>
-    </div>
-    <script>
-        function finalYes() {
-            document.querySelector('.buttons').style.display = 'none';
-            document.querySelector('h1').innerText = '❤️ Ура! ❤️';
-        }
-        function shrinkNo() {
-            let yesButton = document.querySelector('.yes');
-            let noButton = document.querySelector('.no');
-            let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-            yesButton.style.fontSize = (currentSize * 4) + 'px';
-            yesButton.style.padding = (currentSize * 0.7) + 'px ' + (currentSize * 1.2) + 'px';
-            if (currentSize > 20000) {
-                noButton.style.display = 'none';
-                yesButton.style.width = '100vw';
-                yesButton.style.height = '100vh';
-                yesButton.innerText = '❤️ Ура! ❤️';
-            }
-        }
-    </script>
+  <h1>Will you be my Valentine?</h1>
+  <img src="teddy.png" alt="Мишка с сердечком" class="bear">
+  <div class="buttons">
+    <button class="yes" onclick="finalYes()">Yes</button>
+    <button class="no" onclick="handleNo()">No</button>
+  </div>
+  <script>
+    // Варианты для кнопки "No"
+    const noVariants = [
+      "I will be sad",
+      "Very, very sad",
+      "Are you sure?",
+      "Think again",
+      "Don't be so harsh!",
+      "Really?",
+      "Please say yes!"
+    ];
+    let noIndex = 0;
+    
+    function finalYes() {
+      document.querySelector('.buttons').style.display = 'none';
+      document.querySelector('h1').innerText = '❤️ Ура! ❤️';
+    }
+    
+    function handleNo() {
+      // Меняем текст кнопки No
+      const noButton = document.querySelector('.no');
+      noButton.innerText = noVariants[noIndex];
+      noIndex = (noIndex + 1) % noVariants.length;
+      
+      // Увеличиваем кнопку Yes
+      const yesButton = document.querySelector('.yes');
+      // Получаем текущий размер шрифта
+      let currentFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+      // Увеличиваем шрифт на 50%
+      let newFontSize = currentFontSize * 1.5;
+      yesButton.style.fontSize = newFontSize + 'px';
+      
+      // Пропорционально изменяем padding (на усмотрение)
+      yesButton.style.padding = (newFontSize * 0.5) + 'px ' + (newFontSize * 0.8) + 'px';
+    }
+  </script>
 </body>
 </html>
